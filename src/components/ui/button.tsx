@@ -19,6 +19,7 @@ const buttonVariants = cva(
           "text-secondary-foreground shadow-sm ",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        login :"w-full bg-[#A64F24] hover:bg-[#d66c3b] text-white rounded-[0.5rem]"
       },
       size: {
         default: "h-9 px-4 py-2",

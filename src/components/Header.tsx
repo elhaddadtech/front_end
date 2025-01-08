@@ -1,4 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar"
+import Logout from "../components/Logout"
 import { Button } from "../components/ui/button"
 import {
   DropdownMenu,
@@ -11,8 +12,16 @@ import {
 import { Bell, LogOut, Settings, User } from 'lucide-react'
 import { Sidebar } from "./Sidebar"
 import Link from "next/link"
+import { redirect } from "next/navigation";
 
-export function Header() {
+import { auth } from  "../auth"
+import Image from "next/image"
+export async function Header() {
+  const session = await auth();
+  console.log("session",session);
+  
+  if (!session?.user) redirect("/");
+
   return (
     <header className="flex h-16 items-center px-4 border-b border-border bg-background">
       <div className="lg:hidden mr-2">
@@ -27,18 +36,20 @@ export function Header() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-              <Avatar className="h-8 w-8">
-                <AvatarImage src="/avatars/01.png" alt="@johndoe" />
-                <AvatarFallback>AE</AvatarFallback>
-              </Avatar>
+            <div className="avatar online">
+                <div className="w-8 h-8 rounded-full">
+                <Image width={32} height={32} src={session?.user?.image} alt={session?.user?.name} />
+                {/* <span className="text-xl">AI</span> */}
+                </div>
+              </div>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56 mt-4 bg-slate-100" align="end" forceMount>
             <DropdownMenuLabel className="font-normal">
               <div className="flex flex-col space-y-1">
-                <p className="text-sm font-medium leading-none">Abdelmounaim Elhaddad</p>
+                <p className="text-sm font-medium leading-none"> {session?.user?.name} </p>
                 <p className="text-xs leading-none text-muted-foreground">
-                  a.elhaddad@uca.ac.ma
+                {session?.user?.email}
                 </p>
               </div>
             </DropdownMenuLabel>
@@ -53,7 +64,7 @@ export function Header() {
             <DropdownMenuSeparator />
             <DropdownMenuItem>
               <LogOut className="mr-2 h-4 w-4" />
-              <span>Log out</span>
+                <Logout />
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

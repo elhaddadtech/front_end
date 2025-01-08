@@ -35,7 +35,7 @@ export default function LoginPage() {
                 required
                 type="text"
                 placeholder="Username"
-                className="w-full px-4 py-2 border rounded-md"
+                className="w-full px-4 py-2 border rounded-[0.5rem]"
               />
             </div>
             <div>
@@ -43,13 +43,10 @@ export default function LoginPage() {
                 required
                 type="password"
                 placeholder="Password"
-                className="w-full px-4 py-2 border rounded-md"
+                className="w-full px-4 py-2 border rounded-[0.5rem]"
               />
             </div>
-            <Button
-              className="w-full bg-[#A44F28] hover:bg-[#d66c3b] text-white py-2 rounded-md"
-              type="submit"
-            >
+            <Button variant="login" type="submit">
               Log in
             </Button>
           </form>
@@ -57,10 +54,12 @@ export default function LoginPage() {
           {/* Divider */}
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300"></div>
+              <div className="w-full border-t-2 border-gray-300"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-white text-gray-500">ou</span>
+              <span className="px-4 bg-white text-gray-500 font-bold text-xl">
+                ou
+              </span>
             </div>
           </div>
 
@@ -71,9 +70,9 @@ export default function LoginPage() {
               name="action"
               value="google"
               variant="outline"
-              className="w-full flex items-center justify-center gap-2 border rounded-md py-2"
+              className="w-full flex items-center justify-center gap-2 border rounded-[0.5rem] py-2"
             >
-              <div className="relative w-6 h-6">
+              <div className="relative w-6 h-6 ">
                 <Image
                   src={google}
                   alt="Google Logo"
@@ -81,14 +80,16 @@ export default function LoginPage() {
                   className="object-contain"
                 />
               </div>
-              <span className="text-sm">Votre compte @uca.ac.ma</span>
+              <span className="text-sm r">
+                Votre compte {process.env.DOMAIN_NAME?.toLowerCase()}
+              </span>
             </Button>
           </form>
         </div>
       </div>
 
-      {/* Right Section - Only visible on large screens (lg and up) */}
-      <div className="hidden lg:flex w-1/2 bg-[#4B77BE] p-8 items-center h-screen justify-center text-white">
+      {/* Right Section - Only visible on large screens (lg and up)  bg-[#A64F24] bg-[#4B77BE] */}
+      <div className="hidden lg:flex w-1/2 bg-[#A64F24] p-8 items-center h-screen justify-center text-white">
         <div className="w-full max-w-2xl pt-32">
           <h1 className="text-4xl font-bold text-center">
             Bienvenue dans votre espace privé

@@ -13,8 +13,8 @@ const sidebarItems = [
   { name: 'Dashboard', href: '/home', icon: Home },
   { name: 'Profile', href: '/profile', icon: User },
   { name: 'Courses', href: '/courses', icon: BookOpen },
-  { name: 'Grades', href: '/grades', icon: GraduationCap },
-  { name: 'Analytics', href: '/analytics', icon: LineChart },
+  // { name: 'Grades', href: '/grades', icon: GraduationCap },
+  // { name: 'Analytics', href: '/analytics', icon: LineChart },
 ];
 
 export function Sidebar({ showToggle = true }) {

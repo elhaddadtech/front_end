@@ -1,6 +1,3 @@
-import Image from "next/image";
-// import LoginForm from "@/components/LoginForm";
-// import Logout from "../../components/Logout";
 import { auth } from "../../../auth";
 
 import { redirect } from "next/navigation";
