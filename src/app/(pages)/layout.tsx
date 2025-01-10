@@ -2,7 +2,7 @@ import '../globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Sidebar } from '../../components/Sidebar'
-import { Header } from '../../components/Header'
+import Header from '../../components/Header'
 import Link from 'next/link'
 import { ChevronLeft } from 'lucide-react'
 import { Button } from '../../components/ui/button'
@@ -25,7 +25,7 @@ export default function RootLayout({
         <div className="flex flex-col h-screen lg:flex-row">
           <Sidebar showToggle={false} />
           <div className="flex-1 flex flex-col overflow-hidden">
-            <Header />
+          <Header />
             <main className="flex-1 overflow-y-auto p-6">
               {children}
             </main>

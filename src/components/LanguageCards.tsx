@@ -12,28 +12,32 @@ const languages = [
 ]
 
 export default function LanguageCards() {
-  const { counter, increment, decrement } = useStore();
+  const { students} = useStore();
   return (
     <div className="grid grid-cols-1  gap-3">
+      {/* {JSON.stringify(students)} */}
       {languages.map((lang) => (
         <Link href={`/language/${lang.code}`} key={lang.code} className="">
           <Card className="hover:shadow-lg transition-shadow cursor-pointer bg-white border-border h-full">
             <CardHeader className="pb-2">
               <CardTitle className="text-lg font-semibold text-foreground">{lang.name}</CardTitle>
-              <button onClick={increment}>Increment</button>
+           
             </CardHeader>
             <CardContent>
               <div className="flex justify-between items-center mb-2">
                 <div   className="badge bg-red-300 text-red-600 font-medium ">
-                  Level {lang.level} {counter} 
+                  Level {lang.level} 
                 </div>
                 <div className="text-sm font-semibold text-muted-foreground space-y-4 ">
                   <h2>Test 1: {lang.score_test_1} </h2> 
-                  <h2  className="badge badge-error badge-outline">Total Time: {lang.total_time}</h2>
                 </div>
                
               </div>
+             <div className="flex justify-between items-center">
               <p className="text-sm text-muted-foreground">{lang.coursesCount} course(s)</p>
+             <p  className="text-sm text-muted-foreground">Total Time: {lang.total_time}</p>
+
+             </div>
             </CardContent>
           </Card>
         </Link>

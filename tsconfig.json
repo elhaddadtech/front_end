@@ -28,7 +28,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/app/(pages)/language/[lang]/page.jsx"  ],
+, "src/app/(pages)/language/[lang]/page.jsx", "src/components/HeaderClient.jsx"  ],
   "exclude": [
     "node_modules"
   ]
