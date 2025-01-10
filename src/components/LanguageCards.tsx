@@ -1,9 +1,9 @@
 "use client"
 import useStore from "../store/useStore";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card"
-import { Badge } from "../components/ui/badge"
+// import { Badge } from "../components/ui/badge"
 import Link from "next/link"
-import dynamic from "next/dynamic";
+// import dynamic from "next/dynamic";
 const languages = [
   { code: "french", name: "French", coursesCount: 2, level: "B1", score_test_1: "205/400",total_time:"15:25:31" },
   { code: "english", name: "English", coursesCount: 1, level: "B1", score_test_1: "240/400" ,total_time:"14:30:45"},
