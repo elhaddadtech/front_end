@@ -8,7 +8,7 @@ import { Progress } from "../components/ui/progress";
 
 export default function CourseCard({ course }) {
   return (
-    <Card className="bg-white transition-all duration-300 hover:scale-105 flex flex-col w-full">
+    <Card className=" transition-all duration-300 hover:scale-105 flex flex-col w-full">
       <CardHeader>
         <CardTitle className="text-lg">{course.name}</CardTitle>
       </CardHeader>

@@ -11,9 +11,9 @@ export default function LoginPage() {
   // Function to handle form submission
 
   return (
-    <div className="h-screen w-full flex items-center justify-center lg:justify-start overflow-hidden">
+    <div className="h-screen w-full flex items-center justify-center lg:justify-start overflow-hidden ">
       {/* Left Section */}
-      <div className="w-full lg:w-1/2 p-4 lg:p-8 flex flex-col items-center justify-center">
+      <div className="w-full lg:w-1/2 p-4 lg:p-8 flex flex-col items-center justify-center ">
         <div className="w-full max-w-md">
           {/* Logo */}
           <div className="flex justify-center mb-6">
@@ -34,8 +34,8 @@ export default function LoginPage() {
               <Input
                 required
                 type="text"
-                placeholder="Username"
-                className="w-full px-4 py-2 border rounded-[0.5rem]"
+                placeholder="Email"
+                className="w-full px-4 py-2 border "
               />
             </div>
             <div>
@@ -43,7 +43,7 @@ export default function LoginPage() {
                 required
                 type="password"
                 placeholder="Password"
-                className="w-full px-4 py-2 border rounded-[0.5rem]"
+                className="w-full px-4 py-2 border "
               />
             </div>
             <Button variant="login" type="submit">
@@ -52,13 +52,13 @@ export default function LoginPage() {
           </form>
 
           {/* Divider */}
-          <div className="relative my-6">
+          <div className="relative my-4">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t-2 border-gray-300"></div>
+              <div className="w-full border-t-4"> </div>
             </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-white text-gray-500 font-bold text-xl">
-                ou
+            <div className="relative text-center text-lg after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
+              <span className="relative z-10 bg-background px-2 text-muted-foreground">
+                Or continue with
               </span>
             </div>
           </div>
@@ -70,7 +70,7 @@ export default function LoginPage() {
               name="action"
               value="google"
               variant="outline"
-              className="w-full flex items-center justify-center gap-2 border rounded-[0.5rem] py-2"
+              className="w-full flex items-center justify-center gap-2  py-2"
             >
               <div className="relative w-6 h-6 ">
                 <Image

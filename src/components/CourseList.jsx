@@ -1,3 +1,5 @@
+"use client";
+import { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -5,7 +7,7 @@ import {
   CardTitle,
 } from "../components/ui/card";
 import CourseCard from "./CourseCard";
-
+import useStore from "../store/useStore";
 const courses = [
   {
     id: 214053,
@@ -49,12 +51,22 @@ const courses = [
   },
 ];
 
-const languages = Array.from(new Set(courses.map((course) => course.language)));
-
 export default function CourseList() {
+  const { allCourses } = useStore();
+  const [hydrated, setHydrated] = useState(false);
+  const languages = Array.from(
+    new Set(allCourses.map((course) => course.language))
+  );
+  useEffect(() => {
+    setHydrated(true); // Ensure client-side rendering
+  }, []);
+
+  if (!hydrated) {
+    return <div>Loading...AA</div>; // Fallback during hydration
+  }
   return (
     <div className="space-y-8">
-      {languages.map((language) => (
+      {languages?.map((language) => (
         <Card key={language} className="bg-card">
           <CardHeader>
             <CardTitle className="text-2xl font-bold text-foreground">
@@ -63,7 +75,7 @@ export default function CourseList() {
           </CardHeader>
           <CardContent>
             <div className="flex flex-wrap -mx-2">
-              {courses
+              {allCourses
                 .filter((course) => course.language === language)
                 .map((course, index, filteredCourses) => (
                   <div

@@ -1,13 +1,14 @@
 // src/components/Header.tsx
-import { auth } from "../auth"; // Fetch session securely
-import HeaderClient from "./HeaderClient"; // Client Component to render UI
+import { auth } from "../auth";
+
+import HeaderClient from "./HeaderClient";
 
 export default async function Header() {
-  const session = await auth(); // Fetch session from the server
+  const session = await auth();
 
-  if (!session?.user) {
-    redirect("/"); // Redirect to login if no session
-  }
+  // if (!session?.user) {
+  //   redirect("/"); // Redirect to login if no session
+  // }
 
   return <HeaderClient session={session} />; // Pass session to Client Component
 }

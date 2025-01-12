@@ -5,6 +5,7 @@ const languages = ["french", "english", "arabic", "spanish"];
 
 export default function LanguageDetails({ params }) {
   if (!languages.includes(params.lang)) {
+    
     notFound();
   }
 

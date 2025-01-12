@@ -22,9 +22,9 @@ export function Sidebar({ showToggle = true }) {
   const [open, setOpen] = useState(false);
 
   const SidebarContent = (
-    <div className="space-y-4 py-4 border-r-[0.1px] border-gray-200 h-[100vh]">
-      <div className="px-3 py-2">
-        <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
+    <div className=" bg-background space-y-4 py-4 border-r-0 sm:border-r h-[100vh]">
+      <div className="px-2 py-2">
+        <h2 className="mb-2 px-2 text-lg font-semibold tracking-tight">
           Student Portal
         </h2>
         <div className="space-y-1">
@@ -33,13 +33,13 @@ export function Sidebar({ showToggle = true }) {
               <Button
                 key={item.href}
                 variant={pathname === item.href ? "secondary" : "ghost"}
-                className="w-full justify-start hover:bg-red-100 flex items-center space-x-4" // Adding space between icon and text
+                className="w-full justify-start hover:bg-primary/20 flex items-start space-x-5" // Adding space between icon and text
                 asChild
                 onClick={() => setOpen(false)}
               >
-                <Link href={item.href} className=" w-full ">
-                  <item.icon className="h-5 w-5 " />
-                  <span className='w-[10rem]'>{item.name}</span> {/* Add span to wrap the text */}
+                <Link href={item.href} className="w-full">
+                  <item.icon className="h-8 w-8 " />
+                  <span className='w-[20rem]'>{item.name}</span> {/* Add span to wrap the text */}
                 </Link>
               </Button>
             ))}
@@ -62,11 +62,11 @@ export function Sidebar({ showToggle = true }) {
     <>
       <Sheet open={open} onOpenChange={setOpen}>
         {SidebarToggle}
-        <SheetContent side="left" className="w-64 p-0  bg-gray-200 lg:bg-white">
+        <SheetContent side="left" className="text-start pl-0 font-extrabold text-lg w-64">
           {SidebarContent}
         </SheetContent>
       </Sheet>
-      <div className="hidden lg:block w-64   ">
+      <div className="hidden lg:block w-52">
         {SidebarContent}
       </div>
     </>
