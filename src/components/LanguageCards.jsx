@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 export default function LanguageCards() {
   const { languages, status } = useStore();
   const [isLoaded, setIsLoaded] = useState(false);
+  console.log("status", languages);
 
   // useEffect(() => {
 

@@ -9,7 +9,6 @@ import {
 import CourseCard from "./CourseCard";
 import useStore from "../store/useStore";
 
-
 export default function CourseList() {
   const { allCourses } = useStore();
   const [hydrated, setHydrated] = useState(false);
@@ -25,6 +24,7 @@ export default function CourseList() {
   }
   return (
     <div className="space-y-8">
+      {!allCourses.length && <div>No courses found.</div>}
       {languages?.map((language) => (
         <Card key={language} className="bg-card">
           <CardHeader>

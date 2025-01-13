@@ -8,11 +8,19 @@ const useStore = create((set) => ({
   allCourses: [],
   students: [],
   getStudentData: async (email) => {
+    const userEmail = sessionStorage.getItem("userEmail");
+    if (userEmail) {
+      email = userEmail;
+    }
+    console.log("From store", email);
+
     // console.log("getStudentData", email?.user?.email);
     try {
       const data = await axiosConfig.post("/search/user", {
         email: email,
       });
+      console.log("Data from server:", data);
+
       // Extract the 'languages' object directly
       const languages = data?.result?.languages || {};
       let allCourses = []; // Initialize allCourses array

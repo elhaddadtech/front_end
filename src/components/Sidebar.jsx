@@ -1,11 +1,13 @@
+"use client";
+
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
 import { ScrollArea } from "./ui/scroll-area";
-import { Sheet, SheetContent, SheetTrigger } from "../components/ui/sheet"; // Ensure Radix UI Sheets are installed
+import { Sheet, SheetContent, SheetTrigger } from "../components/ui/sheet";
 import { BookOpen, Home, Menu, User } from "lucide-react";
-
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 const sidebarItems = [
   { name: "Dashboard", href: "/home", icon: Home },
   { name: "Profile", href: "/profile", icon: User },
@@ -17,22 +19,24 @@ export function Sidebar({ showToggle = true }) {
   const [open, setOpen] = useState(false);
 
   const SidebarContent = (
-    <div className="bg-background space-y-4 py-4 border-r-0 sm:border-r ">
-      <div className="w-full">
-        <div className="space-y-1 ">
-          <ScrollArea className=" -mr-8 pr-16 font-extrabold  text-2xl">
-            {sidebarItems.map((item) => (
+    <div className="space-y-4 py-4 border-r-[0.1px] h-[100vh]">
+      <div className="px-3 py-2">
+        <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
+          Student Portal
+        </h2>
+        <div className="space-y-1">
+          <ScrollArea className="px-1">
+            {sidebarItems.map(({ name, href, icon: Icon }) => (
               <Button
-                key={item.href}
-                size="lg"
-                variant={pathname === item.href ? "secondary" : "ghost"}
-                className="w-full active justify-start hover:bg-primary/50 flex items-start space-x-1"
+                key={href}
+                variant={pathname === href ? "secondary" : "ghost"}
+                className="w-full justify-start hover:bg-primary/20  flex items-center space-x-4"
                 asChild
                 onClick={() => setOpen(false)}
               >
-                <Link href={item.href} className="w-full flex items-center">
-                  <item.icon className="-ml-10 h-10 w-10 text-3xl " />
-                  <span className=" w-10">{item.name}</span>
+                <Link href={href} className="w-full">
+                  <Icon className="h-5 w-5" />
+                  <span className="w-[10rem]">{name}</span>
                 </Link>
               </Button>
             ))}
@@ -55,14 +59,11 @@ export function Sidebar({ showToggle = true }) {
     <>
       <Sheet open={open} onOpenChange={setOpen}>
         {SidebarToggle}
-        <SheetContent
-          side="left"
-          className="text-start pl-0 font-extrabold text-lg w-56"
-        >
+        <SheetContent side="left" className="w-64 p-0">
           {SidebarContent}
         </SheetContent>
       </Sheet>
-      <div className="hidden lg:block w-40">{SidebarContent}</div>
+      <div className="hidden lg:block w-64">{SidebarContent}</div>
     </>
   );
 }

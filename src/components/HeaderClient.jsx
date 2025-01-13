@@ -20,39 +20,6 @@ import { Sidebar } from "./Sidebar";
 
 function HeaderClient({ session }) {
   const { getStudentData } = useStore();
-  const [loading, setLoading] = useState(false);
-  const inputRef = useRef(null); // Correct useRef initialization
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const email = inputRef.current?.value; // Accessing ref value
-        console.log("Email from input", email);
-
-        if (email) {
-          await getStudentData(email);
-        } else {
-          console.warn("Email is not available in session.");
-        }
-      } catch (error) {
-        console.error("Failed to fetch student data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    // Only fetch data if inputRef has a value
-    if (inputRef.current?.value) fetchData();
-  }, [getStudentData]); // Removed `inputRef` as a dependency
-
-  const handleSearch = () => {
-    const email = inputRef.current?.value;
-    if (email) {
-      console.log("Searching for:", email);
-      getStudentData(email);
-    }
-  };
 
   const userName = session?.user?.name || "Guest User";
   const userEmail = session?.user?.email || "No email provided";
@@ -60,35 +27,20 @@ function HeaderClient({ session }) {
 
   return (
     <header className="flex h-16 items-center px-4 border-b border-border bg-background">
-      <div className="lg:hidden mr-4">
+      <div className="lg:hidden mr-2">
         <Sidebar showToggle={true} />
       </div>
-      <h1 className="text-xl font-semibold text-foreground hidden lg:block">
-        <div className="flex items-center space-x-2">
-          <input
-            ref={inputRef}
-            type="text"
-            placeholder="Search"
-            className="w-1/2 h-8 rounded-md p-2"
-          />
-          <button
-            onClick={handleSearch}
-            className="bg-primary text-white px-4 py-2 rounded-md"
-          >
-            Search
-          </button>
-        </div>
+      <h1 className="text-xl font-semibold text-foreground lg:hidden">
         Student Portal
       </h1>
       <div className="ml-auto flex items-center space-x-4">
-        <TogleDarkMode />
         <Button
           variant="ghost"
           size="icon"
           className="text-muted-foreground hover:text-foreground"
-          aria-label="Notifications"
         >
           <Bell className="h-5 w-5" />
+          <span className="sr-only">Notifications</span>
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -115,7 +67,10 @@ function HeaderClient({ session }) {
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Logout />
+              <span>
+                <LogOut className="mr-2 h-4 w-4" />
+                <Logout />
+              </span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
