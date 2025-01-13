@@ -11,7 +11,7 @@ const useStore = create((set) => ({
     // console.log("getStudentData", email?.user?.email);
     try {
       const data = await axiosConfig.post("/search/user", {
-        email: "a.elhaddad@uca.ac.ma",
+        email: email,
       });
       // Extract the 'languages' object directly
       const languages = data?.result?.languages || {};
