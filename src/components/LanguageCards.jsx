@@ -1,16 +1,16 @@
 "use client";
 import useStore from "../store/useStore";
-import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
-import { Badge } from "../components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { Badge } from "./ui/badge";
 import Link from "next/link";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function LanguageCards() {
   const { languages, status } = useStore();
-  const [isLoaded,setIsLoaded]=useState(false)
+  const [isLoaded, setIsLoaded] = useState(false);
 
   // useEffect(() => {
-    
+
   //   setIsLoaded(true)
   // }, []);
   // // Loading state while data is being fetched

@@ -3,7 +3,6 @@ import { React, useEffect } from "react"; // Import React
 import "../globals.css";
 import Header from "../../components/Header";
 import { Sidebar } from "../../components/Sidebar";
-import { Main } from "next/document";
 
 export default function RootLayout({ children }) {
   // const [loaded, setLoaded] = React.useState(false);

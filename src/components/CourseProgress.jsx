@@ -8,24 +8,6 @@ import {
 import { Progress } from "../components/ui/progress";
 import { Badge } from "../components/ui/badge";
 import useStore from "../store/useStore";
-// const allCourses = [
-//   {
-//     id: 214053,
-//     cours_name: "Service après-vente",
-//     cours_progress: "72%",
-//     cours_grade: "96%",
-//     total_lessons: 2,
-//     langue: "french",
-//   },
-//   {
-//     id: 214054,
-//     cours_name: "Communications pratiques (B1)",
-//     cours_progress: "52%",
-//     cours_grade: "98%",
-//     total_lessons: 4,
-//     langue: "french",
-//   },
-// ];
 
 export default function CourseProgress({ language }) {
   const { languages, allCourses } = useStore();
