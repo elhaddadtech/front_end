@@ -1,30 +1,16 @@
-import { auth } from "../../../auth";
-import { redirect } from "next/navigation";
+"use client";
 import LanguageCards from "../../../components/LanguageCards";
-import { Suspense } from "react";
+// import { Suspense } from "react";
+// import Modal from "../../../components/Modal";
 
-const HomePage = async () => {
-  const session = await auth();
-
-  // Redirect unauthenticated users
-  // if (!session?.user) {
-  //   redirect("/");
-  // }
-
-  // Log only for debugging (ensure it doesn't vary between server/client)
-  if (process.env.NODE_ENV === "development") {
-    console.log(
-      "Rendering HomePage on",
-      typeof window === "undefined" ? "server" : "client"
-    );
-  }
-
+const HomePage = () => {
   return (
-    <div className="space-y-6">
+    <main className="space-y-6">
       <h1 className="text-2xl lg:text-3xl font-bold">Language Dashboard</h1>
-      {/* LanguageCards should handle its own loading/fallback */}
+      {/* <Modal /> */}
+
       <LanguageCards />
-    </div>
+    </main>
   );
 };
 

@@ -8,48 +8,7 @@ import {
 } from "../components/ui/card";
 import CourseCard from "./CourseCard";
 import useStore from "../store/useStore";
-const courses = [
-  {
-    id: 214053,
-    name: "Service après-vente",
-    progress: "72%",
-    grade: "96%",
-    totalLessons: 2,
-    language: "Français",
-  },
-  {
-    id: 214054,
-    name: "Communications pratiques (B1)",
-    progress: "52%",
-    grade: "98%",
-    totalLessons: 4,
-    language: "Français",
-  },
-  {
-    id: 214055,
-    name: "Service comptable",
-    progress: "75%",
-    grade: "95%",
-    totalLessons: 2,
-    language: "Anglais",
-  },
-  {
-    id: 214056,
-    name: "Compétence visée : Grammaire (B1)",
-    progress: "49%",
-    grade: "93%",
-    totalLessons: 5,
-    language: "Arabe",
-  },
-  {
-    id: 214057,
-    name: "Leçons vidéos : Les sciences",
-    progress: "77%",
-    grade: "96%",
-    totalLessons: 13,
-    language: "Espagnol",
-  },
-];
+
 
 export default function CourseList() {
   const { allCourses } = useStore();

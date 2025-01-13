@@ -24,6 +24,7 @@ export default function LoginPage() {
                 fill
                 className="object-contain"
                 priority
+                sizes={300}
               />
             </div>
           </div>
@@ -78,6 +79,7 @@ export default function LoginPage() {
                   alt="Google Logo"
                   fill
                   className="object-contain"
+                  sizes="300"
                 />
               </div>
               <span className="text-sm r">

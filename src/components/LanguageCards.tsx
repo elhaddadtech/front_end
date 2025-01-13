@@ -3,14 +3,20 @@ import useStore from "../store/useStore";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
 import Link from "next/link";
+import { useState,useEffect } from "react";
 
 export default function LanguageCards() {
   const { languages, status } = useStore();
+  const [isLoaded,setIsLoaded]=useState(false)
 
-  // Loading state while data is being fetched
-  if (!status ) {
-    return <div className="">Loading languages...</div>;
-  }
+  // useEffect(() => {
+    
+  //   setIsLoaded(true)
+  // }, []);
+  // // Loading state while data is being fetched
+  // if (!isLoaded ) {
+  //   return <div className="">Loading languages...</div>;
+  // }
 
   // Fallback for empty or undefined `languages`
   if (!languages || languages.length === 0) {

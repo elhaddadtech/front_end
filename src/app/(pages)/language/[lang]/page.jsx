@@ -1,21 +1,25 @@
+// src/app/language/[lang]/page.jsx
 import { notFound } from "next/navigation";
 import CourseProgress from "../../../../components/CourseProgress";
 
+// List of supported languages
 const languages = ["french", "english", "arabic", "spanish"];
 
-export default function LanguageDetails({ params }) {
-  if (!languages.includes(params.lang)) {
-    
+// Make the component async
+export default async function LanguageDetails({ params }) {
+  const { lang } = await params;
+
+  // Ensure the language exists in the list, else return a 404
+  if (!languages.includes(lang)) {
     notFound();
   }
 
   return (
     <div className="space-y-8">
       <h1 className="text-2xl lg:text-3xl font-bold text-gray-800 capitalize ">
-        {params.lang}
+        {lang}
       </h1>
-      <CourseProgress language={params.lang} />
-      {/* <PerformanceCharts /> */}
+      <CourseProgress language={lang} />
     </div>
   );
 }

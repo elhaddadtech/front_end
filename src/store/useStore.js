@@ -1,6 +1,5 @@
 import axiosConfig from "../lib/axiosConfig";
 import { create } from "zustand";
-
 // Create a store for managing a counter
 const useStore = create((set) => ({
   // Initial state
@@ -12,7 +11,7 @@ const useStore = create((set) => ({
     // console.log("getStudentData", email?.user?.email);
     try {
       const data = await axiosConfig.post("/search/user", {
-        email: "a.allaoui3754@uca.ac.ma",
+        email: "a.elhaddad@uca.ac.ma",
       });
       // Extract the 'languages' object directly
       const languages = data?.result?.languages || {};

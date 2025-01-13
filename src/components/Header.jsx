@@ -1,14 +1,34 @@
+"use client";
 // src/components/Header.tsx
-import { auth } from "../auth";
-
+import { useEffect, useState } from "react";
 import HeaderClient from "./HeaderClient";
 
-export default async function Header() {
-  const session = await auth();
+export default function Header() {
+  const [session, setSession] = useState(null); // Use `null` for no session
+  const [isLoading, setIsLoading] = useState(true);
 
-  // if (!session?.user) {
-  //   redirect("/"); // Redirect to login if no session
-  // }
+  useEffect(() => {
+    // Define an async function inside the useEffect callback
+    const fetchSession = async () => {
+      try {
+        // Replace with your session fetching logic
+        // const userSession = await auth();
+        // setSession(userSession);
+      } catch (error) {
+        console.error("Failed to fetch user session:", error);
+      } finally {
+        setIsLoading(false); // Always update loading state
+      }
+    };
 
-  return <HeaderClient session={session} />; // Pass session to Client Component
+    fetchSession(); // Call the async function
+  }, []); // Empty dependency array to run only once on mount
+
+  // Show a loading indicator while session data is being fetched
+  if (isLoading) {
+    return <div>Loading..From Header.</div>;
+  }
+
+  // Render the client component with the session data
+  return <HeaderClient session={session} />;
 }
