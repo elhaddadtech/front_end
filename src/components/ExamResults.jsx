@@ -1,4 +1,3 @@
-"use client";
 import {
   Card,
   CardContent,
@@ -123,7 +122,7 @@ export default function ExamResults() {
                 </div>
               </CardContent>
             </Card>
-            {/* <LanguageProgressCharts language={language as keyof typeof transformedData} /> */}
+            {/* <LanguageProgressCharts language={language} /> */}
           </div>
         </TabsContent>
       ))}
