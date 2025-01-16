@@ -1,6 +1,6 @@
 // src/app/language/[lang]/page.jsx
 import { notFound } from "next/navigation";
-import CourseProgress from "../../../../components/CourseProgress";
+import CourseProgress from "../../../../../components/CourseProgress";
 
 // List of supported languages
 const languages = ["french", "english", "arabic", "spanish"];

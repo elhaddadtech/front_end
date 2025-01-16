@@ -59,8 +59,8 @@ function HeaderClient({ session }) {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem asChild>
-              <Link href="/profile">
+            <DropdownMenuItem className="cursor-pointer" asChild>
+              <Link href="/student/profile">
                 <User className="mr-2 h-4 w-4" />
                 <span>Profile</span>
               </Link>

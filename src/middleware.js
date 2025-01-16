@@ -40,9 +40,10 @@ export default async function middleware(req) {
 export const config = {
   matcher: [
     "/home/:path*",
-    "/profile",
-    "/courses",
-    "/language/:path*",
+    "/student/dashboard",
+    "/student/profile",
+    "/student/courses",
+    "/student/language/:path*",
     "/dashboard",
   ],
 };

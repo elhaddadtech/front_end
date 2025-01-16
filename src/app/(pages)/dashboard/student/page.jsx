@@ -1,16 +1,16 @@
 "use client";
-import LanguageCards from "../../../components/LanguageCards";
-// import { Suspense } from "react";
-// import Modal from "../../../components/Modal";
+
+import RoleRedirect from "../../../../lib/RoleRedirect";
+import LanguageCards from "../../../../components/LanguageCards";
 
 const HomePage = () => {
   return (
+    // <RoleRedirect>
     <main className="space-y-6">
       <h1 className="text-2xl lg:text-3xl font-bold">Language Dashboard</h1>
-      {/* <Modal /> */}
-
       <LanguageCards />
     </main>
+    // {/* </RoleRedirect> */}
   );
 };
 

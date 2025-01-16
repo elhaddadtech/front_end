@@ -1,4 +1,4 @@
-import StudentInfo from "../../../components/StudentInfo";
+import StudentInfo from "../../../../components/StudentInfo";
 
 export default function ProfilePage() {
   return (

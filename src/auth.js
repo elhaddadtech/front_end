@@ -31,6 +31,8 @@ export const {
     async signIn({ user, account, profile }) {
       // Only allow users with a valid domain, e.g., @uca.ac.ma
       if (user.email && user.email.endsWith("@uca.ac.ma")) {
+        console.log("Valid domain", user.email);
+
         return true; // Allow sign-in if the domain is valid
       } else {
         // Reject sign-in if the email domain is not allowed

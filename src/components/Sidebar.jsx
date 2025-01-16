@@ -6,12 +6,13 @@ import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
 import { ScrollArea } from "./ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "../components/ui/sheet";
-import { BookOpen, Home, Menu, User } from "lucide-react";
+import { BookOpen, GraduationCap, Home, Menu, User } from "lucide-react";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 const sidebarItems = [
-  { name: "Dashboard", href: "/home", icon: Home },
-  { name: "Profile", href: "/profile", icon: User },
-  { name: "Courses", href: "/courses", icon: BookOpen },
+  { name: "Dashboard", href: "/student/dashboard", icon: Home },
+  { name: "Profile", href: "/student/profile", icon: User },
+  { name: "Courses", href: "/student/courses", icon: BookOpen },
+  { name: "progression", href: "/student/progression", icon: GraduationCap },
 ];
 
 export function Sidebar({ showToggle = true }) {

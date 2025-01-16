@@ -8,7 +8,6 @@ import { useState, useEffect } from "react";
 export default function LanguageCards() {
   const { languages, status } = useStore();
   const [isLoaded, setIsLoaded] = useState(false);
-  console.log("status", languages);
 
   // useEffect(() => {
 
@@ -27,7 +26,11 @@ export default function LanguageCards() {
   return (
     <div className="grid grid-cols-1 gap-3">
       {languages.map((lang) => (
-        <Link href={`/language/${lang.code}`} key={lang.code} className="">
+        <Link
+          href={`/student/language/${lang.code}`}
+          key={lang.code}
+          className=""
+        >
           <Card className="hover:shadow-lg transition-shadow cursor-pointer border-border h-full">
             <CardHeader className="pb-2">
               <CardTitle className="text-lg font-semibold text-foreground">

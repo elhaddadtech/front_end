@@ -1,6 +1,8 @@
 import axiosConfig from "../lib/axiosConfig";
+
 import { create } from "zustand";
 // Create a store for managing a counter
+
 const useStore = create((set) => ({
   // Initial state
   status: false,
@@ -8,18 +10,12 @@ const useStore = create((set) => ({
   allCourses: [],
   students: [],
   getStudentData: async (email) => {
-    const userEmail = sessionStorage.getItem("userEmail");
-    if (userEmail) {
-      email = userEmail;
-    }
-    console.log("From store", email);
+    const userEmail = sessionStorage.getItem("userEmail")
+      ? sessionStorage.getItem("userEmail")
+      : email;
 
-    // console.log("getStudentData", email?.user?.email);
     try {
-      const data = await axiosConfig.post("/search/user", {
-        email: email,
-      });
-      console.log("Data from server:", data);
+      const data = await axiosConfig.post("/search/user", { email: userEmail });
 
       // Extract the 'languages' object directly
       const languages = data?.result?.languages || {};
@@ -58,6 +54,8 @@ const useStore = create((set) => ({
         status: data.status,
         allCourses: allCourses,
       });
+      // console.log("Store updated with data", data);
+
       return data;
     } catch (error) {
       console.error("Error fetching data:", error);
