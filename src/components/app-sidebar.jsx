@@ -1,6 +1,6 @@
-"use client"
+"use client";
 import { useSession } from "next-auth/react";
-import * as React from "react"
+import * as React from "react";
 import {
   AudioWaveform,
   BookOpen,
@@ -12,19 +12,19 @@ import {
   PieChart,
   Settings2,
   SquareTerminal,
-} from "lucide-react"
+} from "lucide-react";
 
-import { NavMain } from "../components/nav-main"
-import { NavProjects } from "../components/nav-projects"
-import { NavUser } from "../components/nav-user"
-import { TeamSwitcher } from "../components/team-switcher"
+import { NavMain } from "./nav-main";
+import { NavProjects } from "./nav-projects";
+import { NavUser } from "./nav-user";
+import { TeamSwitcher } from "./team-switcher";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
-} from "../components/ui/sidebar"
+} from "./ui/sidebar";
 
 // This is sample data.
 const data = {
@@ -44,7 +44,6 @@ const data = {
       logo: Frame,
       plan: "UCAM",
     },
-    
   ],
   navMain: [
     {
@@ -66,14 +65,13 @@ const data = {
           url: "#",
         },
       ],
-    }
+    },
   ],
- 
-}
+};
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ ...props }) {
   const { data: session, status } = useSession();
-  
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -81,12 +79,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-       
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={session? session?.user : data.user} />
+        <NavUser user={session ? session.user : data.user} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }
