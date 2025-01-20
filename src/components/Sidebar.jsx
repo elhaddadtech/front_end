@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Button } from "./ui/button";
+import { Button } from "../components/ui/button";
 import { ScrollArea } from "./ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "../components/ui/sheet";
 import { BookOpen, GraduationCap, Home, Menu, User } from "lucide-react";

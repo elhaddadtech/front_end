@@ -21,7 +21,7 @@ export default function CourseProgress({ language }) {
       {courses?.map((course) => (
         <Card
           key={course.id}
-          className="bg-card hover:bg-orange-50 rounded-lg transition-shadow duration-300 hover:shadow-xl hover:translate-y-8"
+          className="bg-card  rounded-lg transition-shadow duration-300 hover:shadow-xl hover:translate-y-8"
         >
           <CardHeader>
             <CardTitle className="text-foreground">Course Progress</CardTitle>

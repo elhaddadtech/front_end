@@ -3,7 +3,7 @@
 import TogleDarkMode from "../components/TogleDarkMode";
 import { useEffect, useState, useRef } from "react";
 import useStore from "../store/useStore";
-import { Button } from "../components/ui/button";
+import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import Logout from "../components/Logout";
 import {
