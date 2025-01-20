@@ -20,7 +20,7 @@ export function Sidebar({ showToggle = true }) {
   const [open, setOpen] = useState(false);
 
   const SidebarContent = (
-    <div className="space-y-4 py-4 border-r-[0.1px] h-[100vh]">
+    <div className="space-y-4 py-4 border-r-[0.1px] h-[100vh] ">
       <div className="px-3 py-2">
         <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
           Student Portal

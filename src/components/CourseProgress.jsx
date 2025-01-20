@@ -17,37 +17,42 @@ export default function CourseProgress({ language }) {
     : allCourses;
 
   return (
-    <Card className="bg-card">
-      <CardHeader>
-        <CardTitle className="text-foreground">Course Progress</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-6">
-          {courses.map((course) => (
-            <div key={course.id} className="space-y-2">
-              <div className="flex justify-between items-center">
-                <span className="font-medium ">{course.name}</span>
-                <Badge variant="outline" className="text-primary">
-                  {course.language}
-                </Badge>
-              </div>
-              <div className="space-y-1">
-                <div className="flex justify-between items-center text-sm text-red-foreground">
-                  <span>Progressa: {course.progress}</span>
-                  <span>Lessons: {course.total_lessons}</span>
+    <>
+      {courses?.map((course) => (
+        <Card
+          key={course.id}
+          className="bg-card hover:bg-orange-50 rounded-lg transition-shadow duration-300 hover:shadow-xl hover:translate-y-8"
+        >
+          <CardHeader>
+            <CardTitle className="text-foreground">Course Progress</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="font-medium">{course.name}</span>
+                  <Badge variant="outline" className="text-primary">
+                    {course.language}
+                  </Badge>
                 </div>
-                <Progress value={parseInt(course.progress)} className="h-2 " />
-              </div>
-              <div className="space-y-1">
-                <div className="flex justify-between items-center text-sm text-red-foreground">
-                  <span>Grade: {course.grade}</span>
+                <div className="space-y-1">
+                  <div className="flex justify-between items-center text-sm text-red-foreground">
+                    <span>Progress: {course.progress}</span>
+                    <span>Lessons: {course.total_lessons}</span>
+                  </div>
+                  <Progress value={parseInt(course.progress)} className="h-2" />
                 </div>
-                <Progress value={parseInt(course.grade)} className="h-2 " />
+                <div className="space-y-1">
+                  <div className="flex justify-between items-center text-sm text-red-foreground">
+                    <span>Grade: {course.grade}</span>
+                  </div>
+                  <Progress value={parseInt(course.grade)} className="h-2" />
+                </div>
               </div>
             </div>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
+          </CardContent>
+        </Card>
+      ))}
+    </>
   );
 }

@@ -15,7 +15,7 @@ export default async function LanguageDetails({ params }) {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-2">
       <h1 className="text-2xl lg:text-3xl font-bold text-gray-800 capitalize ">
         {lang}
       </h1>

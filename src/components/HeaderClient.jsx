@@ -17,6 +17,7 @@ import {
 import { Bell, LogOut, User } from "lucide-react";
 import Link from "next/link";
 import { Sidebar } from "./Sidebar";
+import { ThemeToggle } from "./ThemeToggle";
 
 function HeaderClient({ session }) {
   const { getStudentData } = useStore();
@@ -34,6 +35,7 @@ function HeaderClient({ session }) {
         Student Portal
       </h1>
       <div className="ml-auto flex items-center space-x-4">
+        <ThemeToggle />
         <Button
           variant="ghost"
           size="icon"
