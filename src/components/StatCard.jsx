@@ -15,8 +15,8 @@ function StatCard({ title, value, Icon = Users, progress = "0" }) {
       <CardContent>
         <div className="text-2xl font-bold">{value}</div>
       </CardContent>
-      <div className="text-base pr-4 font-bold text-green-500 text-muted-foreground text-end">
-        {progress} %
+      <div className="text-base pr-4 font-bold text-green-500  text-end">
+            {progress} %
       </div>
       <Progress
         value={progress}
