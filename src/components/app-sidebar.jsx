@@ -48,13 +48,13 @@ const data = {
   navMain: [
     {
       title: "Students",
-      url: "#",
+      url: "/students",
       icon: SquareTerminal,
       isActive: true,
       items: [
         {
           title: "History",
-          url: "#",
+          url: "/students",
         },
         {
           title: "Starred",

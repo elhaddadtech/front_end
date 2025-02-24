@@ -9,6 +9,7 @@ const useStore = create((set) => ({
   languages: [],
   allCourses: [],
   students: [],
+  stats: [],
   getStudentData: async (email) => {
     const userEmail = sessionStorage.getItem("userEmail")
       ? sessionStorage.getItem("userEmail")
@@ -55,6 +56,23 @@ const useStore = create((set) => ({
         status: data.status,
         allCourses: allCourses,
       });
+      // console.log("Store updated with data", data);
+
+      return data;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  },
+
+  getStudentsStats: async () => {
+    try {
+      const data = await axiosConfig.get("/students/stats");
+      console.log("Data from getStudentsStats:", data.total_users);
+      //sotre result in stats
+      set({
+        stats: data.total_users,
+      });
+
       // console.log("Store updated with data", data);
 
       return data;
