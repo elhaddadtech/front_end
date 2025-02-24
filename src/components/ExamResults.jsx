@@ -7,6 +7,7 @@ import {
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -73,7 +74,7 @@ export default function ExamResults() {
               <CardHeader>
                 <CardTitle>
                   {language.charAt(0).toUpperCase() + language.slice(1)} Exam
-                  Results
+                  Results.
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -118,6 +119,42 @@ export default function ExamResults() {
                         </TableRow>
                       ))}
                     </TableBody>
+                    <TableCaption>
+                      <section className="flex justify-evenly font-bold text-md">
+                        {console.log(students)}
+                        <span>
+                          Note activité :
+                          {
+                            students?.languages?.[language][0].courses[0]
+                              ?.noteCC1
+                          }
+                        </span>
+                        <span>
+                          {" "}
+                          Note temps :{" "}
+                          {
+                            students?.languages?.[language][0].courses[0]
+                              ?.noteCC2
+                          }
+                        </span>
+                        <span>
+                          noteCC:{" "}
+                          {
+                            students?.languages?.[language][0].courses[0]
+                              ?.noteCC
+                          }
+                        </span>
+
+                        <span>
+                          noteExam:{" "}
+                          {students?.languages?.[language][0].courses[0]
+                            ?.noteExam !== null
+                            ? students?.languages?.[language][0].courses[0]
+                                ?.noteExam
+                            : "N/A"}
+                        </span>
+                      </section>
+                    </TableCaption>
                   </Table>
                 </div>
               </CardContent>
