@@ -1,4 +1,5 @@
 "use client";
+import QueryProvider from "../../lib/QueryProvider";
 import { useEffect, useState } from "react";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "next-themes";
@@ -31,27 +32,31 @@ export default function RootLayout({ children }) {
 
   // This effect runs only on the client, after the initial render
   useEffect(() => {
-    setIsClient(true); // Set to true once client is mounted
+    if (typeof window !== "undefined") {
+      setIsClient(true); // Set to true once client is mounted
 
-    document.body.setAttribute("cz-shortcut-listen", "true");
-    // Only run on the client side
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-      setTheme(savedTheme);
-    } else {
-      setTheme("light"); // Default theme if none is saved
+      document.body.setAttribute("cz-shortcut-listen", "true");
+      // Only run on the client side
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme) {
+        setTheme(savedTheme);
+      } else {
+        setTheme("light"); // Default theme if none is saved
+      }
+
+      // Add a cz-shortcut-listen attribute for some custom handling (if needed)
+      document.body.setAttribute("cz-shortcut-listen", "true");
     }
-
-    // Add a cz-shortcut-listen attribute for some custom handling (if needed)
-    document.body.setAttribute("cz-shortcut-listen", "true");
   }, []);
 
   // Apply theme after client-side mount
   useEffect(() => {
-    if (isClient && theme) {
-      document.body.classList.remove("light", "dark"); // Remove existing theme classes
-      document.body.classList.add(theme); // Add the new theme
-      localStorage.setItem("theme", theme); // Save theme preference to localStorage
+    if (typeof window !== "undefined") {
+      if (isClient && theme) {
+        document.body.classList.remove("light", "dark"); // Remove existing theme classes
+        document.body.classList.add(theme); // Add the new theme
+        localStorage.setItem("theme", theme); // Save theme preference to localStorage
+      }
     }
   }, [isClient, theme]); // Only run when client has mounted and theme is set
 
@@ -86,7 +91,9 @@ export default function RootLayout({ children }) {
                   </div>
                 </header>
 
-                <div>{children}</div>
+                <div>
+                  <QueryProvider>{children}</QueryProvider>
+                </div>
               </SidebarInset>
             </SidebarProvider>
           </body>

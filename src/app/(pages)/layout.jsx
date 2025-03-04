@@ -12,13 +12,15 @@ export default function RootLayout({ children }) {
   const [theme, setTheme] = useState(null); // Initial state is `null`
 
   useEffect(() => {
-    document.body.setAttribute("cz-shortcut-listen", "true");
-    // Only run on the client side
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-      setTheme(savedTheme);
-    } else {
-      setTheme("light"); // Default theme if none is saved
+    if (typeof window !== "undefined") {
+      document.body.setAttribute("cz-shortcut-listen", "true");
+      // Only run on the client side
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme) {
+        setTheme(savedTheme);
+      } else {
+        setTheme("light"); // Default theme if none is saved
+      }
     }
   }, []);
 

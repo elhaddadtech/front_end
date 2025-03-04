@@ -12,9 +12,11 @@ const metadata = {
 
 export default function RootLayout({ children }) {
   useEffect(() => {
-    // Ensure this runs only on the client
-    // setLoaded(true); // Uncommented to trigger rendering when loaded
-    document.body.setAttribute("cz-shortcut-listen", "true");
+    if (typeof window !== "undefined") {
+      // Ensure this runs only on the client
+      // setLoaded(true); // Uncommented to trigger rendering when loaded
+      document.body.setAttribute("cz-shortcut-listen", "true");
+    }
   }, []);
   return (
     <SessionProvider>

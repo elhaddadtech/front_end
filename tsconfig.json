@@ -28,7 +28,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/app/(pages)/student/language/[lang]/page.jsx", "src/components/HeaderClient.jsx", "src/app/(pages)/layout.jsx", "src/components/Sidebar.jsx", "src/components/LanguageCards.jsx", "src/components/StudentDashboard.jsx", "src/components/StudentInfo.jsx", "src/components/theme-provider.tsx", "src/components/ExamResults.jsx", "src/components/app-sidebar.jsx", "src/components/nav-main.jsx", "src/components/nav-projects.jsx", "src/components/nav-user.jsx", "src/components/team-switcher.jsx"  ],
+, "src/app/(pages)/student/language/[lang]/page.jsx", "src/components/HeaderClient.jsx", "src/app/(pages)/layout.jsx", "src/components/Sidebar.jsx", "src/components/LanguageCards.jsx", "src/components/StudentDashboard.jsx", "src/components/StudentInfo.jsx", "src/components/theme-provider.tsx", "src/components/ExamResults.jsx", "src/components/app-sidebar.jsx", "src/components/nav-main.jsx", "src/components/nav-projects.jsx", "src/components/nav-user.jsx", "src/components/team-switcher.jsx", "src/components/students/students-data-table.jsx"  ],
   "exclude": [
     "node_modules"
   ]

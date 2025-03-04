@@ -47,18 +47,18 @@ const data = {
   ],
   navMain: [
     {
-      title: "Students",
-      url: "/students",
+      title: "Gestion Students",
+      url: "/Gestion Students",
       icon: SquareTerminal,
       isActive: true,
       items: [
         {
-          title: "History",
+          title: "students",
           url: "/students",
         },
         {
-          title: "Starred",
-          url: "#",
+          title: "Results",
+          url: "/Results",
         },
         {
           title: "Settings",
