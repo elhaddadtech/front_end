@@ -49,12 +49,14 @@ export default function StudentsDataTable() {
   const [columnVisibility, setColumnVisibility] = React.useState({});
   const [rowSelection, setRowSelection] = React.useState({});
   const [students, setStudents] = React.useState([]);
+  const [branches, setBranches] = React.useState([]);
   const [institutions, setInstitutions] = React.useState([]);
   const [page, setPage] = React.useState(1);
   const [totalPages, setTotalPages] = React.useState(1);
   const [totalStudent, setTotalStudent] = React.useState(0);
   const [isLoading, setIsLoading] = React.useState(false);
   const [selectedInstitution, setSelectedInstitution] = React.useState(null); // New state for selected institution
+  const [selectedBranch, setSelectedBranch] = React.useState(null); // New state for selected branch
   const [searchQuery, setSearchQuery] = React.useState(""); // New state for search query
   const searchStudent = React.useRef();
 
@@ -136,9 +138,11 @@ export default function StudentsDataTable() {
           `/students/institution?page=${page}`,
           {
             institution_id: selectedInstitution, // Use selected institution
+            branch_id: selectedBranch, // Use selected branch
           }
         );
         setStudents(response?.students?.data);
+        setBranches(response?.branches);
         setTotalPages(response?.students?.last_page);
         setTotalStudent(response?.students?.total);
       }
@@ -153,7 +157,14 @@ export default function StudentsDataTable() {
         }
       }
     }
-  }, [selectedInstitution, page, searchQuery]);
+  }, [selectedInstitution, selectedBranch, page, searchQuery]);
+
+  // Reset selected branch when selected institution changes
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      setSelectedBranch(null); // Reset branch selection
+    }
+  }, [selectedInstitution]); // Dependency on selectedInstitution
 
   const columns = [
     {
@@ -187,7 +198,7 @@ export default function StudentsDataTable() {
     },
     {
       accessorKey: "branch_libelle",
-      header: "Institution",
+      header: "Branch",
       cell: ({ row }) => <div>{row.getValue("branch_libelle")}</div>,
     },
     {
@@ -234,12 +245,6 @@ export default function StudentsDataTable() {
   return (
     <Card>
       <CardHeader>
-        <div>
-          <CardTitle>Students</CardTitle>
-          <CardDescription>
-            Manage your students and their information
-          </CardDescription>
-        </div>
         <div className="flex items-center justify-between w-full">
           <div className="flex gap-4">
             <Input
@@ -267,13 +272,36 @@ export default function StudentsDataTable() {
               <SelectTrigger className="w-full sm:w-[180px]">
                 <SelectValue placeholder="Filter by institution" />
               </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="null">All Institutions</SelectItem>
+              <SelectContent className="text-md font-bold text-center">
+                <SelectItem value="null" className="text-blue-400">
+                  All Institutions
+                </SelectItem>
                 {institutions?.map((institution) => (
                   <SelectItem key={institution.id} value={institution.id}>
                     {" "}
                     {/* Set institution id */}
-                    {institution.libelle}
+                    {institution.libelle.toUpperCase()}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            {/* Selected Branch */}
+            <Select onValueChange={setSelectedBranch}>
+              {" "}
+              {/* Set selected institution */}
+              <SelectTrigger className="w-full sm:w-[180px]">
+                <SelectValue placeholder="Filter by branch" />
+              </SelectTrigger>
+              <SelectContent className="text-md font-bold text-center">
+                <SelectItem value="null" className="text-blue-400">
+                  All Institutions
+                </SelectItem>
+                {branches?.map((branche) => (
+                  <SelectItem key={branche.id} value={branche.id}>
+                    {" "}
+                    {/* Set institution id */}
+                    {branche.libelle.toUpperCase()}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -283,9 +311,9 @@ export default function StudentsDataTable() {
           <div className="flex flex-col gap-2 sm:flex-row">
             <Button
               onClick={() => ExportStudentByInstitution()}
-              variant="outline"
+              variant="default"
               size="sm"
-              className="h-8 gap-1"
+              className="h-8 gap-1 text-primary"
               disabled={
                 selectedInstitution === null ||
                 selectedInstitution === "null" ||
@@ -310,7 +338,7 @@ export default function StudentsDataTable() {
               ) : (
                 <Download className="h-3.5 w-3.5" />
               )}
-              <span className="hidden sm:inline">Export</span>
+              {isLoading ? "Exporting..." : "Export"}
             </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -345,13 +373,13 @@ export default function StudentsDataTable() {
       <CardContent>
         <ScrollArea className="h-[500px]">
           <Table className="">
-            <TableHeader className="sticky top-0 z-10 bg-[#c4eaf5]">
+            <TableHeader className="sticky top-0 z-10 ">
               {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id} className="bg-white">
+                <TableRow key={headerGroup.id} className="">
                   {headerGroup.headers.map((header) => (
                     <TableHead
                       key={header.id}
-                      className="px-4 py-2 border-b bg-white sticky top-0 z-50"
+                      className="px-4 py-2 border-b sticky top-0 z-50"
                     >
                       {flexRender(
                         header.column.columnDef.header,
@@ -368,7 +396,10 @@ export default function StudentsDataTable() {
                 table.getRowModel().rows.map((row) => (
                   <TableRow key={row.id}>
                     {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id} className="b py-2 ">
+                      <TableCell
+                        key={cell.id}
+                        className="b py-2 text-md font-bold "
+                      >
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext()
