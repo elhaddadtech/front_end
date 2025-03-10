@@ -5,7 +5,7 @@ const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL, // Use environment variable with fallback
   timeout: 90000, // Set a request timeout
   headers: {
-    "Content-Type": "application/json",
+    "Content-Type": "multipart/form-data",
     Accept: "application/json",
   },
 });

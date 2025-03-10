@@ -18,7 +18,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { ArrowUpDown, ChevronDown, Download, SearchCheck } from "lucide-react";
+import {
+  ArrowUpDown,
+  ChevronDown,
+  Download,
+  SearchCheck,
+  Upload,
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -42,7 +48,7 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-
+import axios from "axios";
 export default function StudentsDataTable() {
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);
@@ -59,6 +65,8 @@ export default function StudentsDataTable() {
   const [selectedBranch, setSelectedBranch] = React.useState(null); // New state for selected branch
   const [searchQuery, setSearchQuery] = React.useState(""); // New state for search query
   const searchStudent = React.useRef();
+  const [isUploading, setIsUploading] = React.useState(false);
+  const [uploadStatus, setUploadStatus] = React.useState("idle");
 
   const ExportStudentByInstitution = async () => {
     try {
@@ -118,6 +126,35 @@ export default function StudentsDataTable() {
     setStudents(response?.students?.data);
     setTotalPages(response?.students?.last_page);
     setTotalStudent(response?.students?.total);
+  };
+
+  const handleFileUpload = async (file) => {
+    if (!file) {
+      console.error("Invalid file:", file);
+      return;
+    }
+
+    setIsUploading(true);
+
+    // // Simulate a delay of 8 seconds before the upload starts
+    // await new Promise((resolve) => setTimeout(resolve, 8000));
+
+    const formData = new FormData();
+    formData.append("csv_file", file);
+
+    try {
+      const response = await axiosConfig.post("/students/import", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Accept: "application/json",
+        },
+      });
+
+      setIsUploading(false); // Set uploading state to false after the request is done
+    } catch (error) {
+      setIsUploading(false); // Handle error and stop uploading
+      console.error("Upload error:", error.response?.data || error.message);
+    }
   };
 
   React.useEffect(() => {
@@ -194,17 +231,23 @@ export default function StudentsDataTable() {
     {
       accessorKey: "institution_libelle",
       header: "Institution",
-      cell: ({ row }) => <div>{row.getValue("institution_libelle")}</div>,
+      cell: ({ row }) => (
+        <div className=" uppercase">{row.getValue("institution_libelle")}</div>
+      ),
     },
     {
       accessorKey: "branch_libelle",
       header: "Branch",
-      cell: ({ row }) => <div>{row.getValue("branch_libelle")}</div>,
+      cell: ({ row }) => (
+        <div className=" uppercase">{row.getValue("branch_libelle")}</div>
+      ),
     },
     {
       accessorKey: "group_libelle",
       header: "Group",
-      cell: ({ row }) => <div>{row.getValue("group_libelle")}</div>,
+      cell: ({ row }) => (
+        <div className=" uppercase">{row.getValue("group_libelle")}</div>
+      ),
     },
     {
       accessorKey: "semester_libelle",
@@ -214,7 +257,9 @@ export default function StudentsDataTable() {
     {
       accessorKey: "cne",
       header: "CNE",
-      cell: ({ row }) => <div>{row.getValue("cne")}</div>,
+      cell: ({ row }) => (
+        <div className=" uppercase">{row.getValue("cne")}</div>
+      ),
     },
     {
       accessorKey: "apogee",
@@ -340,33 +385,51 @@ export default function StudentsDataTable() {
               )}
               {isLoading ? "Exporting..." : "Export"}
             </Button>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm" className="h-8 gap-1">
-                  <span>Columns</span>
-                  <ChevronDown className="h-3.5 w-3.5" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                {table
-                  .getAllColumns()
-                  .filter((column) => column.getCanHide())
-                  .map((column) => {
-                    return (
-                      <DropdownMenuCheckboxItem
-                        key={column.id}
-                        className="capitalize"
-                        checked={column.getIsVisible()}
-                        onCheckedChange={(value) =>
-                          column.toggleVisibility(!!value)
-                        }
-                      >
-                        {column.id}
-                      </DropdownMenuCheckboxItem>
-                    );
-                  })}
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <div className="relative">
+              <Button
+                variant="outline"
+                size="sm"
+                className={`h-8 gap-1 relative group ${
+                  isUploading ? "opacity-80 pointer-events-none" : ""
+                }`}
+                disabled={isUploading}
+              >
+                {isUploading ? (
+                  <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+                ) : (
+                  <Upload className="h-3.5 w-3.5" />
+                )}
+                <span className="hidden sm:inline">
+                  {isUploading ? "Uploading..." : "Upload CSV"}
+                </span>
+                <span
+                  className="absolute inset-0 cursor-pointer"
+                  onClick={() =>
+                    !isUploading &&
+                    document.getElementById("file-upload").click()
+                  }
+                />
+              </Button>
+              <input
+                id="file-upload"
+                type="file"
+                accept=".csv,text/csv"
+                className="sr-only"
+                onChange={(e) => {
+                  if (e.target.files?.length) {
+                    handleFileUpload(e.target.files[0]);
+                    e.target.value = "";
+                  }
+                }}
+              />
+              {uploadStatus !== "idle" && (
+                <div
+                  className={`absolute -top-1 -right-1 flex h-3 w-3 ${
+                    uploadStatus === "success" ? "bg-green-500" : "bg-red-500"
+                  } rounded-full`}
+                ></div>
+              )}
+            </div>
           </div>
         </div>
       </CardHeader>

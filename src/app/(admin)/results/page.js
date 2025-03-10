@@ -1,10 +1,10 @@
 // StudentsPage.tsx
 
-import StudentsDataTable from "../../../components/students/students-data-table";
+import ResultsDataTable from "../../../components/students/results-data-table";
 import { Separator } from "../../../components/ui/separator";
 import { SidebarInset, SidebarTrigger } from "../../../components/ui/sidebar";
 
-export default function StudentsPage() {
+export default function ResultsPage() {
   return (
     <SidebarInset>
       <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
@@ -18,7 +18,7 @@ export default function StudentsPage() {
         </div>
       </header>
       <div className="p-4">
-        <StudentsDataTable />
+        <ResultsDataTable />
       </div>
     </SidebarInset>
   );

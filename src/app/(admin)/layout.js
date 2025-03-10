@@ -1,5 +1,7 @@
 "use client";
+import { usePathname } from "next/navigation";
 import QueryProvider from "../../lib/QueryProvider";
+import { Toaster } from "sonner";
 import { useEffect, useState } from "react";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "next-themes";
@@ -30,6 +32,8 @@ export default function RootLayout({ children }) {
   const [theme, setTheme] = useState(null); // Initially no theme
   const [isClient, setIsClient] = useState(false); // Track if the client has mounted
 
+  const pathname = usePathname();
+  const path = pathname.split("/").filter(Boolean).pop();
   // This effect runs only on the client, after the initial render
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -81,7 +85,9 @@ export default function RootLayout({ children }) {
                         </BreadcrumbItem>
                         <BreadcrumbSeparator className="hidden md:block" />
                         <BreadcrumbItem>
-                          <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                          <BreadcrumbPage>
+                            {path == "dashboard" ? "Home" : path}
+                          </BreadcrumbPage>
                         </BreadcrumbItem>
                       </BreadcrumbList>
                     </Breadcrumb>
@@ -93,6 +99,7 @@ export default function RootLayout({ children }) {
 
                 <div>
                   <QueryProvider>{children}</QueryProvider>
+                  <Toaster position="top-right" richColors />
                 </div>
               </SidebarInset>
             </SidebarProvider>

@@ -1,5 +1,6 @@
 "use client";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import * as React from "react";
 import {
   AudioWaveform,
@@ -45,6 +46,7 @@ const data = {
       plan: "UCAM",
     },
   ],
+
   navMain: [
     {
       title: "Gestion Students",
@@ -58,11 +60,15 @@ const data = {
         },
         {
           title: "Results",
-          url: "/Results",
+          url: "/results",
         },
         {
           title: "Settings",
-          url: "#",
+          url: "/settings",
+        },
+        {
+          title: "Users",
+          url: "/users",
         },
       ],
     },
