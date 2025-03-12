@@ -229,18 +229,18 @@ const columns = [
       ),
   },
   {
-    accessorKey: "Max_score_test",
+    accessorKey: "score_test_4",
     header: "Max Score Test",
     cell: ({ row }) =>
-      row.getValue("Max_score_test") || (
+      row.getValue("score_test_4") || (
         <span className="text-muted-foreground italic">N/A</span>
       ),
   },
   {
-    accessorKey: "Max_level_test",
+    accessorKey: "level_test_4",
     header: "Max Level Test",
     cell: ({ row }) =>
-      row.getValue("Max_level_test") || (
+      row.getValue("level_test_4") || (
         <span className="text-muted-foreground italic">N/A</span>
       ),
   },
@@ -314,6 +314,7 @@ export default function ResultsDataTable() {
 
       // Set data from the response
       setData(response?.results?.data || []);
+      console.log("response", response);
 
       // Update pagination information
       setPagination((prev) => ({
