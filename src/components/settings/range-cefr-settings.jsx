@@ -1,5 +1,5 @@
 "use client";
-
+import axiosConfig from "../../lib/axiosConfig";
 import { useState, useEffect } from "react";
 import {
   Table,
@@ -50,14 +50,8 @@ export function RangeCefrSettings() {
     setIsLoading(true);
     try {
       // Use the actual API endpoint
-      const response = await fetch("http://localhost:8000/api/range-cefefrs");
-
-      if (!response.ok) {
-        throw new Error(`API request failed with status ${response.status}`);
-      }
-
-      const data = await response.json();
-      setRangeCefrs(data);
+      const response = await axiosConfig.get("/range-cefefrs");
+      setRangeCefrs(response?.rangeCefefrs);
     } catch (error) {
       console.error("Error fetching Range CEFRs:", error);
       toast.error("Failed to load Range CEFR data", {
@@ -102,23 +96,15 @@ export function RangeCefrSettings() {
       }
 
       // Update existing range using the API
-      const updatePromise = fetch(
-        `http://localhost:8000/api/range-cefefrs/${editingRange.id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      )
+      const updatePromise = axiosConfig
+        .put(`/range-cefefrs/${editingRange.id}`, formData)
         .then((response) => {
-          if (!response.ok) {
-            throw new Error(
-              `API request failed with status ${response.status}`
-            );
-          }
-          return response.json();
+          // if (!response?.ok) {
+          //   throw new Error(
+          //     `API request failed with status ${response.status}`
+          //   );
+          // }
+          return response?.data;
         })
         .then(() => {
           // Refresh the data after update

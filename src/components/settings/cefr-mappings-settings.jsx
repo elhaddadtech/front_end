@@ -30,7 +30,7 @@ import {
 import { Card, CardContent } from "../ui/card";
 import { toast } from "sonner";
 import { Pencil, Search, Loader2 } from "lucide-react";
-
+import axiosConfig from "../../lib/axiosConfig";
 export function CefrMappingsSettings() {
   const [cefrMappings, setCefrMappings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -53,14 +53,9 @@ export function CefrMappingsSettings() {
     setIsLoading(true);
     try {
       // Use the actual API endpoint
-      const response = await fetch("http://localhost:8000/api/cefr-mappings");
+      const response = await axiosConfig.get("/cefr-mappings");
 
-      if (!response.ok) {
-        throw new Error(`API request failed with status ${response.status}`);
-      }
-
-      const data = await response.json();
-      setCefrMappings(data);
+      setCefrMappings(response?.cefrMappings);
     } catch (error) {
       console.error("Error fetching CEFR mappings:", error);
       toast.error("Failed to load CEFR mappings", {
@@ -120,8 +115,11 @@ export function CefrMappingsSettings() {
       }
 
       // Update existing mapping using the API
+      console.log("editingMapping", editingMapping);
+      console.log("formData1", formData);
+
       const updatePromise = fetch(
-        `http://localhost:8000/api/cefr-mappings/${editingMapping.id}`,
+        `${process.env?.NEXT_PUBLIC_API_BASE_URL}/cefr-mappings/${editingMapping.id}`,
         {
           method: "PUT",
           headers: {
@@ -136,6 +134,8 @@ export function CefrMappingsSettings() {
               `API request failed with status ${response.status}`
             );
           }
+          console.log("responseUpd", response);
+
           return response.json();
         })
         .then(() => {
