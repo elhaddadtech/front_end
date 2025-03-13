@@ -178,7 +178,7 @@ export function CefrMappingsSettings() {
     setOpenDialog(true);
   };
 
-  const filteredMappings = cefrMappings.filter(
+  const filteredMappings = cefrMappings?.filter(
     (mapping) =>
       mapping.level?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       mapping.language?.toLowerCase().includes(searchQuery.toLowerCase())
@@ -202,7 +202,7 @@ export function CefrMappingsSettings() {
             <div className="flex h-60 items-center justify-center">
               <Loader2 className="h-8 w-8 animate-spin text-primary" />
             </div>
-          ) : filteredMappings.length > 0 ? (
+          ) : filteredMappings?.length > 0 ? (
             <div className="relative">
               <div className="overflow-x-auto">
                 <div className="max-h-[400px] overflow-y-auto rounded-md border">
@@ -231,7 +231,7 @@ export function CefrMappingsSettings() {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {filteredMappings.map((mapping) => (
+                      {filteredMappings?.map((mapping) => (
                         <TableRow key={mapping.id}>
                           <TableCell className="font-medium">
                             {mapping.level}
