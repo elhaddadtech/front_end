@@ -31,6 +31,7 @@ import { Card, CardContent } from "../ui/card";
 import { toast } from "sonner";
 import { Pencil, Search, Loader2 } from "lucide-react";
 import axiosConfig from "../../lib/axiosConfig";
+
 export function CefrMappingsSettings() {
   const [cefrMappings, setCefrMappings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -96,8 +97,17 @@ export function CefrMappingsSettings() {
     setIsSubmitting(true);
 
     try {
-      // Validate form data
-      if (!formData.level || !formData.language || formData.lesson <= 0) {
+      // Convert lesson and ratio values to integers
+      formData.lesson = Number(formData.lesson);
+      formData.noteCC1_ratio = Number(formData.noteCC1_ratio);
+      formData.noteCC2_ratio = Number(formData.noteCC2_ratio);
+
+      // Validate required fields
+      if (
+        !formData.level?.trim() ||
+        !formData.language?.trim() ||
+        formData.lesson <= 0
+      ) {
         toast.error("Validation Error", {
           description: "Please fill in all required fields correctly",
         });
@@ -114,34 +124,17 @@ export function CefrMappingsSettings() {
         return;
       }
 
-      // Update existing mapping using the API
       console.log("editingMapping", editingMapping);
-      console.log("formData1", formData);
 
-      const updatePromise = fetch(
-        `${process.env?.NEXT_PUBLIC_API_BASE_URL}/cefr-mappings/${editingMapping.id}`,
-        {
-          method: "PUT",
+      // Send API request
+      const updatePromise = axiosConfig
+        .put(`/cefr-mappings/${editingMapping.id}`, formData, {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formData),
-        }
-      )
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(
-              `API request failed with status ${response.status}`
-            );
-          }
-          console.log("responseUpd", response);
-
-          return response.json();
         })
-        .then(() => {
-          // Refresh the data after update
-          return fetchCefrMappings();
-        });
+        .then((response) => response?.cefrMappings)
+        .then(() => fetchCefrMappings());
 
       toast.promise(updatePromise, {
         loading: "Updating CEFR mapping...",
@@ -164,7 +157,9 @@ export function CefrMappingsSettings() {
       setOpenDialog(false);
     } catch (error) {
       console.error("Error updating CEFR mapping:", error);
-      // Error is already handled by toast.promise
+      if (error.response) {
+        console.error("API Response Error:", error.response.data);
+      }
     } finally {
       setIsSubmitting(false);
     }
