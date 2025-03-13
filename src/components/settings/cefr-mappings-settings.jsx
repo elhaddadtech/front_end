@@ -56,7 +56,7 @@ export function CefrMappingsSettings() {
       // Use the actual API endpoint
       const response = await axiosConfig.get("/cefr-mappings");
 
-      setCefrMappings(response?.cefrMappings);
+      setCefrMappings(response?.data);
     } catch (error) {
       console.error("Error fetching CEFR mappings:", error);
       toast.error("Failed to load CEFR mappings", {
@@ -124,8 +124,6 @@ export function CefrMappingsSettings() {
         return;
       }
 
-      console.log("editingMapping", editingMapping);
-
       // Send API request
       const updatePromise = axiosConfig
         .put(`/cefr-mappings/${editingMapping.id}`, formData, {
@@ -133,7 +131,7 @@ export function CefrMappingsSettings() {
             "Content-Type": "application/json",
           },
         })
-        .then((response) => response?.cefrMappings)
+        .then((response) => response?.data)
         .then(() => fetchCefrMappings());
 
       toast.promise(updatePromise, {

@@ -51,7 +51,7 @@ export function RangeCefrSettings() {
     try {
       // Use the actual API endpoint
       const response = await axiosConfig.get("/range-cefefrs");
-      setRangeCefrs(response?.rangeCefefrs);
+      setRangeCefrs(response?.data);
     } catch (error) {
       console.error("Error fetching Range CEFRs:", error);
       toast.error("Failed to load Range CEFR data", {
@@ -145,7 +145,7 @@ export function RangeCefrSettings() {
     setOpenDialog(true);
   };
 
-  const filteredRanges = rangeCefrs.filter(
+  const filteredRanges = rangeCefrs?.filter(
     (range) =>
       range.language?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       range.semester?.toLowerCase().includes(searchQuery.toLowerCase())
@@ -169,7 +169,7 @@ export function RangeCefrSettings() {
             <div className="flex h-60 items-center justify-center">
               <Loader2 className="h-8 w-8 animate-spin text-primary" />
             </div>
-          ) : filteredRanges.length > 0 ? (
+          ) : filteredRanges?.length > 0 ? (
             <div className="relative">
               <div className="overflow-x-auto">
                 <div className="max-h-[400px] overflow-y-auto rounded-md border">
@@ -191,7 +191,7 @@ export function RangeCefrSettings() {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {filteredRanges.map((range) => (
+                      {filteredRanges?.map((range) => (
                         <TableRow key={range.id}>
                           <TableCell>{range.language}</TableCell>
                           <TableCell>{range.scaled_score}</TableCell>
