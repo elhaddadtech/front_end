@@ -1,5 +1,5 @@
 "use client";
-
+import axiosConfig from "../../lib/axiosConfig";
 import { useState, useEffect } from "react";
 import {
   Table,
@@ -92,33 +92,19 @@ export function UserManagement() {
     setIsLoading(true);
     try {
       // Use the actual API endpoints
-      const usersResponse = await fetch("http://localhost:8000/api/appusers");
-      const rolesResponse = await fetch("http://localhost:8000/api/roles");
+      const usersResponse = await axiosConfig.get("/appusers");
 
       // In a real app, you would fetch institutions too
       // const institutionsResponse = await fetch('http://localhost:8000/api/institutions')
 
-      if (!usersResponse.ok || !rolesResponse.ok) {
-        throw new Error("Failed to fetch data from API");
-      }
-
-      const usersData = await usersResponse.json();
-      const rolesData = await rolesResponse.json();
-
-      // Mock institutions data for now
-      const mockInstitutions = [
-        { id: 16, name: "Verifier" },
-        // Add more as needed
-      ];
-
-      setRoles(rolesData.data);
-      setUsers(usersData.users);
-      setInstitutions(mockInstitutions);
+      setRoles(usersResponse?.roles);
+      setUsers(usersResponse?.users);
+      setInstitutions(usersResponse?.institutions);
     } catch (error) {
-      console.error("Error fetching data:", error);
-      toast.error("Failed to load users and roles", {
-        description: "Please try again later.",
-      });
+      // console.error("Error fetching data:", error);
+      // toast.error("Failed to load users and roles", {
+      //   description: "Please try again later.",
+      // });
     } finally {
       setIsLoading(false);
     }
@@ -169,18 +155,27 @@ export function UserManagement() {
 
       if (editingUser) {
         // Update existing user
-        const response = await fetch(
-          `http://localhost:8000/api/users/${editingUser.id}`,
+        const response = await axiosConfig.put(
+          `/appusers/${editingUser.id}`,
+          formData,
           {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formData),
+            headers: {
+              "Content-Type": "application/json",
+            },
           }
         );
+        // const response = await fetch(
+        //   `http://localhost:8000/api/users/${editingUser.id}`,
+        //   {
+        //     method: "PUT",
+        //     headers: { "Content-Type": "application/json" },
+        //     body: JSON.stringify(formData),
+        //   }
+        // );
 
-        if (!response.ok) {
-          throw new Error(`API request failed with status ${response.status}`);
-        }
+        // if (!response.ok) {
+        //   throw new Error(`API request failed with status ${response.status}`);
+        // }
 
         // Refresh data after update
         await fetchData();
@@ -633,12 +628,9 @@ export function UserManagement() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="none">None</SelectItem>
-                    {institutions.map((institution) => (
-                      <SelectItem
-                        key={institution.id}
-                        value={institution.id.toString()}
-                      >
-                        {institution.name}
+                    {institutions?.map((institution) => (
+                      <SelectItem key={institution.id} value={institution.id}>
+                        {institution.libelle.toUpperCase()}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -766,12 +758,9 @@ export function UserManagement() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="none">None</SelectItem>
-                    {institutions.map((institution) => (
-                      <SelectItem
-                        key={institution.id}
-                        value={institution.id.toString()}
-                      >
-                        {institution.name}
+                    {institutions?.map((institution) => (
+                      <SelectItem key={institution.id} value={institution.id}>
+                        {institution.libelle.toUpperCase()}
                       </SelectItem>
                     ))}
                   </SelectContent>

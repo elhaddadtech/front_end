@@ -91,37 +91,39 @@ export default function ExamResults() {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {results.map((exam) => (
-                        <TableRow key={exam.id}>
-                          <TableCell className="font-medium">
-                            {exam.name}
-                          </TableCell>
+                      {results
+                        ?.filter((exam) => exam.name !== "N/A") // Filtrer d'abord les examens valides
+                        .map((exam) => (
+                          <TableRow key={exam.id}>
+                            <TableCell className="font-medium">
+                              {exam.name}
+                            </TableCell>
 
-                          {/* Check if exam.date is not empty */}
-                          {exam.date && (
-                            <>
-                              <TableCell className="hidden sm:table-cell">
-                                {exam.date}
-                              </TableCell>
-                              <TableCell>
-                                {exam.score}/{exam.totalScore}
-                              </TableCell>
-                              <TableCell>
-                                <Badge
-                                  variant="secondary"
-                                  className="font-semibold"
-                                >
-                                  {exam.grade}
-                                </Badge>
-                              </TableCell>
-                            </>
-                          )}
-                        </TableRow>
-                      ))}
+                            {/* Vérifier si exam.date existe avant d'afficher les colonnes */}
+                            {exam.date ? (
+                              <>
+                                <TableCell className="hidden sm:table-cell">
+                                  {exam.date}
+                                </TableCell>
+                                <TableCell>
+                                  {exam.score}/{exam.totalScore}
+                                </TableCell>
+                                <TableCell>
+                                  <Badge
+                                    variant="secondary"
+                                    className="font-semibold"
+                                  >
+                                    {exam.grade}
+                                  </Badge>
+                                </TableCell>
+                              </>
+                            ) : null}
+                          </TableRow>
+                        ))}
                     </TableBody>
+
                     <TableCaption>
                       <section className="flex justify-evenly font-bold text-md">
-                        {console.log(students)}
                         <span>
                           Note activité :
                           {
